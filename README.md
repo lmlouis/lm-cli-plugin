@@ -20,6 +20,40 @@ cd lm-cli-plugin
 mvn clean install
 ```
 
+## 🧪 Publier le plugin
+Ajoute  distributionManagement à la fin du pom.xml:
+```xml
+  <distributionManagement>
+    <repository>
+        <id>github</id>
+        <url>https://maven.pkg.github.com/lmlouis/lm-cli-plugin</url>
+    </repository>
+</distributionManagement>
+```
+edite le fichier settings.xml
+```bash
+idea ~/.m2/settings.xml 
+```
+en ajoutant le ghp Personal Access Token de ton github
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+    <servers>
+        <server>
+            <id>github</id>
+            <username>lmlouis</username>
+            <password>ghp Personal Access Token</password>
+        </server>
+    </servers>
+
+</settings>
+```
+deploi le package avec la commande maven 
+```bash
+mvn clean deploy
+```
 ## 🧪 Utilisation dans un projet Maven
 Ajoute ce plugin dans la section <build><plugins> de ton pom.xml :
 ```xml
