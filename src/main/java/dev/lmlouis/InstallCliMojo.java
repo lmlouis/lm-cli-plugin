@@ -19,7 +19,7 @@ import java.net.URL;
  *
  *
  */
-@Mojo( name = "touch", defaultPhase = LifecyclePhase.PROCESS_SOURCES )
+@Mojo( name = "install-lm-cli", defaultPhase = LifecyclePhase.PROCESS_SOURCES )
 public class InstallCliMojo
     extends AbstractMojo
 {
