@@ -10,6 +10,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.json.JSONObject;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,15 +35,17 @@ public class InstallCliMojo extends AbstractMojo {
                 getLog().info("Fetching latest version from GitHub API...");
                 HttpURLConnection conn = (HttpURLConnection) new URL("https://api.github.com/repos/lmlouis/lm-cli/releases/latest").openConnection();
                 conn.setRequestProperty("Accept", "application/vnd.github+json");
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    if (inputLine.contains("\"tag_name\"")) {
-                        tag = inputLine.split(":")[1].replace("\"", "").replace(",", "").trim();
-                        break;
+
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        response.append(line);
                     }
+
+                    JSONObject json = new JSONObject(response.toString());
+                    tag = json.getString("tag_name");
                 }
-                in.close();
             }
 
             getLog().info("Downloading lm-cli source code version: " + tag);

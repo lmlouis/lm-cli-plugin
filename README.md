@@ -62,7 +62,7 @@ Ajoute ce plugin dans la section <build><plugins> de ton pom.xml :
         <plugin>
             <groupId>dev.lmlouis</groupId>
             <artifactId>lm-cli-plugin</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.5</version>
             <executions>
                 <execution>
                     <id>install-lm-cli</id>
@@ -72,7 +72,7 @@ Ajoute ce plugin dans la section <build><plugins> de ton pom.xml :
                     <phase>initialize</phase>
                     <configuration>
                         <!-- Facultatif : tu peux forcer une version spécifique ici -->
-                        <version>1.0.4</version>
+                        <version>latest</version>
                     </configuration>
                 </execution>
             </executions>
