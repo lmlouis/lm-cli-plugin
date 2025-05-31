@@ -17,7 +17,7 @@ import java.net.URL;
 /**
  * Télécharge le binaire lm-cli depuis GitHub Releases.
  *
- * @deprecated Don't use!
+ *
  */
 @Mojo( name = "touch", defaultPhase = LifecyclePhase.PROCESS_SOURCES )
 public class InstallCliMojo

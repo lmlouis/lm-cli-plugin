@@ -5,7 +5,7 @@
 
   <groupId>dev.lmlouis</groupId>
   <artifactId>lm-cli-plugin</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>maven-plugin</packaging>
 
   <name>lm-cli Maven Plugin</name>
