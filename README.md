@@ -58,12 +58,32 @@ mvn clean deploy
 Ajoute ce plugin dans la section <build><plugins> de ton pom.xml :
 ```xml
 <build>
-  <plugins>
-    <plugin>
-      <groupId>dev.lmlouis</groupId>
-      <artifactId>lm-cli-plugin</artifactId>
-      <version>1.0.0</version>
-    </plugin>
-  </plugins>
+    <plugins>
+        <plugin>
+            <groupId>dev.lmlouis</groupId>
+            <artifactId>lm-cli-plugin</artifactId>
+            <version>1.0.2</version>
+            <executions>
+                <execution>
+                    <id>install-lm-cli</id>
+                    <goals>
+                        <goal>install-lm-cli</goal>
+                    </goals>
+                    <phase>initialize</phase>
+                    <configuration>
+                        <!-- Facultatif : tu peux forcer une version spécifique ici -->
+                        <version>1.0.4</version>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
 </build>
 ```
+
+
+Le ZIP est téléchargé dans outputDirectory/lm-cli-source/lm-cli-<version>.zip.
+Le ZIP est extrait dans ce même dossier lm-cli-source.
+Le fichier ZIP est supprimé après extraction.
+La méthode newFile protège contre l’attaque Zip Slip (extraction hors dossier prévu).
+Le plugin logue chaque étape.
