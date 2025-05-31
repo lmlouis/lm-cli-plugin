@@ -53,4 +53,10 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/lmlouis/lm-cli-plugin</url>
+    </repository>
+  </distributionManagement>
 </project>
