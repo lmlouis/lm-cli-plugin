@@ -19,10 +19,9 @@ import java.net.URL;
  *
  *
  */
-@Mojo( name = "install-lm-cli", defaultPhase = LifecyclePhase.PROCESS_SOURCES )
-public class InstallCliMojo
-    extends AbstractMojo
-{
+@Mojo(name = "install-lm-cli", defaultPhase = LifecyclePhase.PROCESS_SOURCES)
+public class InstallCliMojo extends AbstractMojo {
+
     @Parameter(property = "lm.cli.version", defaultValue = "latest")
     private String version;
 
@@ -48,14 +47,14 @@ public class InstallCliMojo
                 in.close();
             }
 
-            getLog().info("Downloading lm-cli version: " + tag);
-            String url = "https://github.com/lmlouis/lm-cli/releases/download/" + tag + "/lm-cli";
-            File targetDir = new File(outputDirectory, "lm-cli-bin");
+            getLog().info("Downloading lm-cli source code version: " + tag);
+            String url = "https://github.com/lmlouis/lm-cli/archive/refs/tags/" + tag + ".zip";
+            File targetDir = new File(outputDirectory, "lm-cli-source");
             targetDir.mkdirs();
-            File binary = new File(targetDir, "lm-cli");
+            File archive = new File(targetDir, "lm-cli-" + tag + ".zip");
 
             try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-                 FileOutputStream fileOutputStream = new FileOutputStream(binary)) {
+                 FileOutputStream fileOutputStream = new FileOutputStream(archive)) {
                 byte[] dataBuffer = new byte[1024];
                 int bytesRead;
                 while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
@@ -63,14 +62,10 @@ public class InstallCliMojo
                 }
             }
 
-            if (!binary.setExecutable(true)) {
-                getLog().warn("Could not make the file executable");
-            }
-
-            getLog().info("lm-cli downloaded to: " + binary.getAbsolutePath());
+            getLog().info("lm-cli source code downloaded to: " + archive.getAbsolutePath());
 
         } catch (IOException e) {
-            throw new MojoExecutionException("Failed to download lm-cli", e);
+            throw new MojoExecutionException("Failed to download lm-cli source code", e);
         }
     }
 }
